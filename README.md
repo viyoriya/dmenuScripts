@@ -39,8 +39,8 @@ extra :
 
 #### Screen shot
  
-![dlist](https://github.com/viyoriya/dmenuScripts/blob/master/screenshots/2021-05-19-09-25-34.png)
+![dlist](https://github.com/viyoriya/dmenuScripts/blob/main/screenshots/2021-05-19-09-25-34.png)
 
-![dfm](https://github.com/viyoriya/dmenuScripts/blob/master/screenshots/2021-05-19-09-29-31.png)
+![dfm](https://github.com/viyoriya/dmenuScripts/blob/main/screenshots/2021-05-19-09-29-31.png)
 
 
