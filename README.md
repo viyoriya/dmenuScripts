@@ -39,7 +39,8 @@ extra :
 
 #### Screen shot
  
-![dmenu list](https://github.com/viyoriya/dmenuScripts/blob/master/screenshots/2021-05-19-09-25-34.png)
+![dlist](https://github.com/viyoriya/dmenuScripts/blob/master/screenshots/2021-05-19-09-25-34.png)
 
-![dmenu file manager](https://github.com/viyoriya/dmenuScripts/blob/master/screenshots/2021-05-19-09-29-31.png)
+![dfm](https://github.com/viyoriya/dmenuScripts/blob/master/screenshots/2021-05-19-09-29-31.png)
+
 
