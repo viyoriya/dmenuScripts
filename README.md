@@ -15,7 +15,7 @@ update the path in makeLinks.sh
 
 run the `makeLinks.sh` to make the soft link from `/usr/local/bin`
 
-press `Modkey+p` and search `dls` dmenu will list all the scripts.
+press `Modkey+p` and search `dls`,  dmenu will list all the scripts.
 
 
 8. dfm    - basic filemanager to open the file.
