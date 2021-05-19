@@ -1,7 +1,5 @@
-dmenu / nvim 
-============
-
 simple dmenu scripts
+=====================
 
 1. dmount - un mount the drive from /mnt and list the drive(s) to mount in /mnt
 2. dpass  - lists stored password from password-store (using pass)
@@ -11,13 +9,11 @@ simple dmenu scripts
 6. dbookmark - add url manually to the file and list it in dmenu (file path : ~/.config/todo/bm_url.txt)
 7. dlist - list all the scripts in dmenu and execute
 
-make a soft link from /usr/local/bin 
-
 update the path in makeLinks.sh
 
      `chmod +x makeLinks.sh`
 
-run the makeLinks.sh
+run the `makeLinks.sh` to make the soft link from `/usr/local/bin`
 
 press `Modkey+p` and search `dls` dmenu will list all the scripts.
 
@@ -38,3 +34,12 @@ I used feh,tar,unzip,zethura,nvim in these scripts.
 extra :
 
 9. dmenu.vim -  its not a plugin so just copy and paste the code in init.vim file in neovim (dmenu/fzf)
+
+
+
+#### Screen shot
+ 
+![dmenu list](https://github.com/viyoriya/dmenuScripts/blob/master/screenshots/2021-05-19-09-25-34.png)
+
+![dmenu file manager](https://github.com/viyoriya/dmenuScripts/blob/master/screenshots/2021-05-19-09-29-31.png)
+
