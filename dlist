@@ -1,0 +1,13 @@
+#!/bin/bash
+
+PROMPT="   Scripts "
+
+DMENU_OPT=" -i -nb #17191C -nf #7D7F82 -sb #4C566A -sf #D8DEE9 -fn Iosevka:style=Regular:pixelsize=13"    
+DMENU="dmenu -l 10 $DMENU_OPT"
+
+script=$( cd /usr/local/bin/ && \ls -1 d_* | $DMENU -p "$PROMPT")
+
+if [[ $script ]]; then 
+    . $script
+fi
+

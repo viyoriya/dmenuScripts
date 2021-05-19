@@ -1,0 +1,22 @@
+#!/bin/bash
+
+PROMPT="   Mount SSD "
+
+DMENU_OPT=" -i -nb #17191C -nf #7D7F82 -sb #4C566A -sf #D8DEE9 -fn Iosevka:style=Regular:pixelsize=13"    
+DMENU="dmenu -l 10 $DMENU_OPT"
+
+if [ -d "/mnt/home/" ]; then
+ #   echo "  :::: un mounting the drive ::::"
+    sudo umount /mnt/
+fi
+
+openDrive(){
+    sudo mount "$1" /mnt/
+    st -e &
+}
+ 
+openDrive $(echo -e '/dev/SolusSystem/Root' | $DMENU -p "$PROMPT" )
+
+#exit 0
+
+#\ls /dev/s* | grep '/dev/s[a-z][b-z][0-9]'

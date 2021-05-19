@@ -1,0 +1,11 @@
+#!/bin/sh
+
+PROMPT="   Login id " 
+
+DMENU_OPT=" -i -nb #17191C -nf #7D7F82 -sb #4C566A -sf #D8DEE9 -fn Iosevka:style=Regular:pixelsize=13"    
+DMENU="dmenu -l 10 $DMENU_OPT"
+
+password=$(find ~/.config/password-store/ -type f -name '*.gpg' |
+	cut -d'/' -f6- | rev | cut -f 2- -d '.' | rev | $DMENU -p "$PROMPT" )
+
+[ -n "$password" ] && pass show -c "$password"

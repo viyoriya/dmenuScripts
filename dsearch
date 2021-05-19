@@ -1,0 +1,14 @@
+#!/bin/bash
+
+PROMPT="   Google Search " 
+
+DMENU_OPT=" -i -nb #17191C -nf #7D7F82 -sb #4C566A -sf #D8DEE9 -fn Iosevka:style=Regular:pixelsize=13"    
+DMENU="dmenu $DMENU_OPT"
+
+URL='http://www.google.com/search?q='
+QUERY=$( echo '' |  $DMENU -p "$PROMPT" )
+
+if [ -n "$QUERY" ]; then
+  xdg-open "${URL}${QUERY}" 2> /dev/null
+fi
+
