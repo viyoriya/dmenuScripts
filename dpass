@@ -6,6 +6,6 @@ DMENU_OPT=" -i -nb #2E3440 -nf #929496 -sb #929496 -sf #2E3440 -fn Iosevka:style
 DMENU="dmenu -l 10 $DMENU_OPT"
 
 password=$(find ~/.password-store/ -type f -name '*.gpg' |
-	cut -d'/' -f6- | rev | cut -f 2- -d '.' | rev | $DMENU -p "$PROMPT" )
+	cut -d'/' -f5- | rev | cut -f 2- -d '.' | rev | $DMENU -p "$PROMPT" )
 
 [ -n "$password" ] && pass show -c "$password"
