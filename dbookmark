@@ -1,16 +1,31 @@
 #!/bin/bash
 
 PROMPT="   Open bookmark "
+PROMPT_ADD="   Add bookmark "
 
 DMENU_OPT=" -i -nb #2E3440 -nf #929496 -sb #929496 -sf #2E3440 -fn Iosevka:style=Regular:pixelsize=13"    
 DMENU="dmenu -l 10 $DMENU_OPT"
 
-file="$HOME/.config/todo/bm_url.txt"
+bmFile="$HOME/.config/todo/bm_url.txt"
+if [ ! -f $bmFile ]; then
+     mkdir -p "$(dirname "$bmFile")" && touch "$bmFile"
+     echo "add" >> $bmFile
+ else
+     touch "$bmFile"
+fi    
+    
+url=$( cat $bmFile | $DMENU -p "$PROMPT" | sed "s/ .*//")
 
-touch "$file"
-chosen=$( cat $file | $DMENU -p "$PROMPT" | sed "s/ .*//")
-
-if [ -n "$chosen" ]; then
-    xdg-open $chosen 2> /dev/null
-fi
+if [[ "$url" == "add" ]]; then
+    url=$( $DMENU -p "$PROMPT_ADD" "$@" < "$bmFile" )
+    if [[ "$url" == "add" ]] || [[ -z "$url" ]]; then 
+        exit 
+    fi
+    echo "$url" >> "$bmFile"
+    xdg-open $url 2> /dev/null
+else
+    if [[ -n "$url" ]]; then
+      xdg-open $url 2> /dev/null
+    fi  
+fi    
 

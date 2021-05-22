@@ -5,7 +5,11 @@ PROMPT="   Add task  "
 DMENU_OPT=" -i -nb #2E3440 -nf #929496 -sb #929496 -sf #2E3440 -fn Iosevka:style=Regular:pixelsize=13"    
 
 file="$HOME/.config/todo/todo.txt"
-touch "$file"
+if [ ! -f $file ]; then
+     mkdir -p "$(dirname "$file")" && touch "$file"
+ else
+     touch "$file"
+fi    
 height=$(wc -l "$file" | awk '{print $1}')
 
 cmd=$(dmenu -l "$height" -p "   [$height] $PROMPT" $DMENU_OPT "$@" < "$file")
