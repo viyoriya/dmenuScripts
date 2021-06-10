@@ -1,13 +1,15 @@
 simple dmenu scripts
 =====================
 
-1. dmount - un mount the drive from /mnt and list the drive(s) to mount in /mnt
-2. dpass  - lists stored password from password-store (using pass)
-3. dtodo  - add/delete todo/task list (file path : ~/.config/todo/todo.txt)
-4. dsearch - search the google from dmenu
-5. drecord - record video/webcam (script from lukesmithxyz)
-6. dbookmark - add url manually to the file and list it in dmenu (file path : ~/.config/todo/bm_url.txt)
-7. dlist - list all the scripts in dmenu and execute
+1. dmount     - un mount the drive from /mnt and list the drive(s) to mount in /mnt
+2. dpass      - lists stored password from password-store (using pass)
+3. dtodo      - add/delete todo/task list (file path : ~/.config/todo/todo.txt)
+4. dsearch    - search the google from dmenu
+5. drecord    - record video/webcam (script from lukesmithxyz)
+6. dbookmark  - add url manually to the file and list it in dmenu (file path : ~/.config/todo/bm_url.txt)
+7. dlist      - list all the scripts in dmenu and execute
+8. dtimer     - timer 
+9. dtimer_fun - timer fuction to add in autostart.sh or dwmblocks
 
 update the path in makeLinks.sh
 
@@ -18,7 +20,7 @@ run the `makeLinks.sh` to make the soft link from `/usr/local/bin`
 press `Modkey+p` and search `dls`,  dmenu will list all the scripts.
 
 
-8. dfm    - basic filemanager to open the file.
+10. dfm    - basic filemanager to open the file.
 
 Note :
 
@@ -33,7 +35,7 @@ I used feh,tar,unzip,zethura,nvim in these scripts.
 
 extra :
 
-9. dmenu.vim -  its not a plugin so just copy and paste the code in init.vim file in neovim (dmenu/fzf)
+11. dmenu.vim -  its not a plugin so just copy and paste the code in init.vim file in neovim (dmenu/fzf)
 
 
 
@@ -42,5 +44,11 @@ extra :
 ![dlist](https://github.com/viyoriya/dmenuScripts/blob/main/screenshots/2021-05-19-09-25-34.png)
 
 ![dfm](https://github.com/viyoriya/dmenuScripts/blob/main/screenshots/2021-05-19-09-29-31.png)
+
+### Timer
+
+![dtimer](https://github.com/viyoriya/dmenuScripts/blob/main/screenshots/2021-06-10-22-23-01.png)
+
+![dtimer](https://github.com/viyoriya/dmenuScripts/blob/main/screenshots/2021-06-10-22-11-22.png)
 
 
