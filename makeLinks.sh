@@ -7,6 +7,7 @@ sudo ln -s /home/vj/Documents/GIT_PROJECTS/dmenuScripts/dpass /usr/local/bin/d_p
 sudo ln -s /home/vj/Documents/GIT_PROJECTS/dmenuScripts/drecord /usr/local/bin/d_record
 sudo ln -s /home/vj/Documents/GIT_PROJECTS/dmenuScripts/dsearch /usr/local/bin/d_search
 sudo ln -s /home/vj/Documents/GIT_PROJECTS/dmenuScripts/dtodo /usr/local/bin/d_todo
+sudo ln -s /home/vj/Documents/GIT_PROJECTS/dmenuScripts/dtimer /usr/local/bin/d_timer 
 sudo ln -s /home/vj/Documents/GIT_PROJECTS/dmenuScripts/dlist /usr/local/bin/dls 
 
 #sudo ln -s /home/vj/Documents/GIT_PROJECTS/dmenuScripts/dcrypto d_crypto

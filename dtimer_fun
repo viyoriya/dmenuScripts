@@ -1,0 +1,22 @@
+#!/bin/bash
+
+
+timerFile="/tmp/.timerFile" #move it to ~/.config/ so it will be persisted even after reboot
+
+timer(){
+    if [ -f $timerFile ]; then
+        timer=$(cat $timerFile)
+        tmpTime=$(date -d "$timer" +'%H:%M')
+        timerSec=$(date +%s -d "$tmpTime")
+        now=$(date +%s)
+        timeDiff=$(( ($timerSec - $now) / 60 ))
+        if [ "$timeDiff" -ge "0" ]; then
+            echo "  $timeDiff Min "
+        else
+            notify-send -u low "Timer" "done !!!" -i  ~/.config/dwm/dwm_logo.png
+            rm $timerFile
+        fi
+    fi    
+}
+
+timer
