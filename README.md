@@ -8,7 +8,7 @@ simple dmenu scripts
 5. drecord    - record video/webcam (script from lukesmithxyz)
 6. dbookmark  - add url manually to the file and list it in dmenu (file path : ~/.config/todo/bm_url.txt)
 
-7. dtimer & dtimer_fun  - timer [copy dtimer_fun code and add in autostart.sh or use directly with  dwmblocks ]
+7. dtimer & dtimer_fun  - timer [copy dtimer_fun code and add in autostart.sh or use directly with dwmblocks and copy .png and .wav files from /etc dir  ]
 
 9. dlist      - list all the scripts in dmenu and execute
 
