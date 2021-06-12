@@ -10,6 +10,8 @@ simple dmenu scripts
 
 7. dtimer,dtimer_fun & dwm_timer  - timer [copy dtimer_fun code to autostart.sh or use dwm_timer in dwmblocks and copy .png and .wav files from /etc dir  ]
 
+8. power_menu  - menu for shutdown/lock/reboot/exit
+
 9. dlist      - list all the scripts in dmenu and execute
 
 update the path in makeLinks.sh
