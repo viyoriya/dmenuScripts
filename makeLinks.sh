@@ -17,8 +17,8 @@ sudo ln -s $dirPath/dtodo /usr/local/bin/d_todo
 sudo ln -s $dirPath/dtimer /usr/local/bin/d_timer 
 sudo ln -s $dirPath/dlist /usr/local/bin/dls 
 
-[ -d "~/.config/dwm" ] && cp $dirPath/etc/*.* ~/.config/dwm/
-[ -d "~/.dwm" ] && cp $dirPath/etc/*.* ~/.dwm/
+[ -d "~/.config/dwm" ] && cp $dirPath/etc/*.* ~/.config/dwm/util/
+[ -d "~/.dwm" ] && cp $dirPath/etc/*.* ~/.dwm/util/
 
 #sudo ln -s /home/vj/Documents/GIT_PROJECTS/dmenuScripts/dcrypto /usr/local/bin/d_crypto
 #sudo ln -s /home/vj/Documents/GIT_PROJECTS/dmenuScripts/dmount_ssd /usr/local/bin/d_mount_ssd 
