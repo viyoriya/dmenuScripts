@@ -2,7 +2,7 @@
 
 PROMPT="   Open File "
 
-DMENU_OPT=" -i -nb #1F222D -nf #929496 -sb #929496 -sf #1F222D -fn Iosevka:style=Regular:pixelsize=13"    
+DMENU_OPT=" -i -nb #1F222D -nf #929496 -sb #929496 -sf #1F222D -fn Iosevka:style=Regular:size=11"    
 DMENU="dmenu -l 10 -p Dir $DMENU_OPT"
 
 SLASH="/"

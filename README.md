@@ -18,7 +18,7 @@ update the path in makeLinks.sh
 
      `chmod +x makeLinks.sh`
 
-run the `makeLinks.sh` to make the soft link from `/usr/local/bin`
+run the `makeLinks.sh` to make the soft links in `/usr/local/bin`
 
 press `Modkey+p` and search `dls`,  dmenu will list all the scripts.
 

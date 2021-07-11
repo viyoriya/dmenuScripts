@@ -1,7 +1,7 @@
 #!/bin/bash
 
 PROMPT="   Start Timer "
-DMENU_OPT=" -i -nb #1F222D -nf #929496 -sb #929496 -sf #1F222D -fn Iosevka:style=Regular:pixelsize=13"    
+DMENU_OPT=" -i -nb #1F222D -nf #929496 -sb #929496 -sf #1F222D -fn Iosevka:style=Regular:size=11"    
 
 timerFile="/tmp/.timerFile" #move it to ~/.config/ so it will be persisted even after reboot
 min=" min\n"
