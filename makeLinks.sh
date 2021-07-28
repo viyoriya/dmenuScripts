@@ -2,12 +2,13 @@
 
 
 #directory path
-dirPath=~/Documents/GIT_PROJECTS/dmenuScripts
+dirPath=$PWD
 
 [ ! -d "$dirPath" ] && echo "Change the directory path"
 
 
 sudo ln -s $dirPath/dbookmark /usr/local/bin/d_bookmark
+sudo ln -s $dirPath/dbluetooth /usr/local/bin/d_bluetooth
 sudo ln -s $dirPath/dfm /usr/local/bin/d_fm
 sudo ln -s $dirPath/dmount /usr/local/bin/d_mount
 sudo ln -s $dirPath/dpass /usr/local/bin/d_pass
