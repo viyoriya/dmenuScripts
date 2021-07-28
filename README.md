@@ -55,3 +55,6 @@ extra :
 ![dtimer](https://github.com/viyoriya/dmenuScripts/blob/main/screenshots/2021-06-10-22-11-22.png)
 
 
+### All
+
+![all](https://github.com/viyoriya/dmenuScripts/blob/main/screenshots/out_all.png)
