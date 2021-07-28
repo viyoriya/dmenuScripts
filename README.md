@@ -6,6 +6,7 @@ simple dmenu scripts
 3. dtodo      - add/delete todo/task list (file path : ~/.config/todo/todo.txt)
 4. dsearch    - search the google from dmenu
 5. drecord    - record video/webcam (script from lukesmithxyz)
+5. dbluetooth - on/off/list bluetooth devices (script from https://github.com/Layerex/dmenu-bluetooth)
 6. dbookmark  - add url manually to the file and list it in dmenu (file path : ~/.config/todo/bm_url.txt)
 
 7. dtimer,dtimer_fun & dwm_timer  - timer [copy dtimer_fun code to autostart.sh or use dwm_timer in dwmblocks and copy .png and .wav files from /etc dir  ]
