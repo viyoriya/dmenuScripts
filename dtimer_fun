@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#viyoriya
 
 timerFile="/tmp/.timerFile" #move it to ~/.config/ so it will be persisted even after reboot
 

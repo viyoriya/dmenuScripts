@@ -41,7 +41,7 @@
 # [AutoEnable=true]
 
 PROMPT="  Bluetooth"
-DMENU_OPT=" -i -nb #1F222D -nf #929496 -sb #929496 -sf #1F222D -fn Iosevka:style=Regular:size=11"    
+DMENU_OPT=" -i -nb #1F222D -nf #929496 -sb #929496 -sf #1F222D -fn Iosevka:style=Regular:size=10"    
 
 power_on() {
     if bluetoothctl show | grep -q "Powered: yes"; then

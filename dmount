@@ -1,23 +1,19 @@
 #!/bin/bash
+#viyoriya - provide permission in sudoers for mount
 
 PROMPT="   Mount HDD "
+DMENU="dmenu -l 10 "
 
-DMENU_OPT=" -i -nb #1F222D -nf #929496 -sb #929496 -sf #1F222D -fn Iosevka:style=Regular:size=11"    
-DMENU="dmenu -l 10 $DMENU_OPT"
-
-if [ -d "/mnt/home/" ]; then
-#    echo "  :::: un mounting the drive ::::"
-    sudo umount /mnt/
-fi
+[[ $(mountpoint -q -- "/mnt") ]] &&  sudo umount /mnt
 
 openDrive(){
-    sudo mount "$1" /mnt/
-    st -e &
+    if [ ! -z "$1" ] ; then
+        sudo mount "/dev/$1" /mnt
+        notify-send -u low "/dev/$1 mounted in /mnt"
+    fi    
 }
  
-openDrive $(\ls /dev/sd* | grep '/dev/sd[a-z][0-9]' | $DMENU -p "$PROMPT" )
+openDrive $(\lsblk -la | awk '/s[a-z][a-z][0-9]/ && $7!="/" && $7!="[SWAP]" {print $1}' | $DMENU -p "$PROMPT" )
 
-#exit 0
-
-#hdd=$(\ls /dev/sd* | grep '/dev/sd[b-z][0-9]' | $DMENU )
-#\ls /dev/s* | grep '/dev/s[a-z][b-z][0-9]'
+#openDrive $(\ls /dev/sd* | grep '/dev/sd[a-z][0-9]' | $DMENU -p "$PROMPT" )
+#openDrive $(\ls /dev/sd* | grep '/dev/s[a-z][a-z][0-9]' | $DMENU -p "$PROMPT" )
