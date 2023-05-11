@@ -3,7 +3,7 @@
 
 PROMPT="   Start Timer "
 #DMENU_OPT=" -i -nb #1F222D -nf #929496 -sb #929496 -sf #1F222D -fn Iosevka:style=Regular:size=10"    
-DMENU_OPT=""    
+#DMENU_OPT=" "    
 
 timerFile="/tmp/.timerFile" #move it to ~/.config/ so it will be persisted even after reboot
 min=" min\n"
@@ -14,9 +14,9 @@ hrsArray=""
 for i in {1..60}; do minsArray=$minsArray$i$min; done
 for i in {1..8}; do hrsArray=$hrsArray$i$hr ; done    # Add more hours if required
 
-timer=$(printf "${minsArray}${hrsArray}" | dmenu -p "$PROMPT" $DMENU_OPT )
+timer=$(printf "${minsArray}${hrsArray}" | dmenu -p "$PROMPT" "$DMENU_OPT" )
 
-if [ ! -z "$timer" ]; then
+if [ -n "$timer" ]; then
     
     timeValue=$(echo "$timer" | awk '{print $1}')
     minsOrhrs=$(echo "$timer" | awk '{print $2}')
@@ -26,7 +26,7 @@ if [ ! -z "$timer" ]; then
         echo "$(date +'%H:%M') $timeValue minutes" >> $timerFile
     elif [[ "$minsOrhrs" == "hr" ]]; then
         [ -f $timerFile ] && rm $timerFile
-        echo "$(date +'%H:%M') $(($timeValue * 60)) minutes" >> $timerFile
+        echo "$(date +'%H:%M') $((timeValue * 60)) minutes" >> $timerFile
     else
         exit 0
     fi    

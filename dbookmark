@@ -9,14 +9,14 @@ PROMPT_ADD="   Add bookmark "
 DMENU="dmenu -l 10 "
 
 bmFile="$HOME/.config/todo/bm_url.txt"
-if [ ! -f $bmFile ]; then
+if [ ! -f "$bmFile" ]; then
      mkdir -p "$(dirname "$bmFile")" && touch "$bmFile"
-     echo "add" >> $bmFile
+     echo "add" >> "$bmFile"
  else
      touch "$bmFile"
 fi    
     
-url=$( cat $bmFile | $DMENU -p "$PROMPT" | sed "s/ .*//")
+url=$( < "$bmFile" $DMENU -p "$PROMPT" | sed "s/ .*//")
 
 if [[ "$url" == "add" ]]; then
     url=$( $DMENU -p "$PROMPT_ADD" "$@" < "$bmFile" )
@@ -24,10 +24,10 @@ if [[ "$url" == "add" ]]; then
         exit 
     fi
     echo "$url" >> "$bmFile"
-    xdg-open $url 2> /dev/null
+    xdg-open "$url" 2> /dev/null
 else
     if [[ -n "$url" ]]; then
-      xdg-open $url 2> /dev/null
+      xdg-open "$url" 2> /dev/null
     fi  
 fi    
 

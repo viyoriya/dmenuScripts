@@ -9,7 +9,7 @@ timer(){
         tmpTime=$(date -d "$timer" +'%H:%M')
         timerSec=$(date +%s -d "$tmpTime")
         now=$(date +%s)
-        timeDiff=$(( ($timerSec - $now) / 60 ))
+        timeDiff=$(( (timerSec - now) / 60 ))
         if [ "$timeDiff" -ge "0" ]; then
             echo "  $timeDiff Min "
         else

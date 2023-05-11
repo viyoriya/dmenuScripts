@@ -40,12 +40,12 @@ callAgain(){
         exit
     fi
 
-    choice=$(ls -ahX --group-directories-first ${1} | $DMENU -p "$PROMPT")
+    choice=$(ls -ahX --group-directories-first "${1}" | $DMENU -p "$PROMPT")
     if [[ -f $1$SLASH$choice ]] 
     then
          openFile "$1$SLASH$choice"
     else
-        callAgain $1$SLASH$choice
+        callAgain "$1$SLASH$choice"
     fi
 }
 

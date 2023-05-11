@@ -7,9 +7,9 @@ PROMPT="   Scripts "
 #DMENU="dmenu -l 10 $DMENU_OPT"
 DMENU="dmenu -l 10 "
 
-script=$( cd /usr/local/bin/ && \ls -1 d_* | $DMENU -p "$PROMPT")
+script=$( cd /usr/local/bin/ && find d_* | $DMENU -p "$PROMPT")
 
-if [[ $script ]]; then 
-    . $script
-fi
+# shellcheck source=/usr/local/bin/
+[[ -n "$script" ]] && source "$script" #Bloody shellcheck throws error grrrr 
+
 

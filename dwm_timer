@@ -6,9 +6,9 @@ if [ -f $timerFile ]; then
       tmpTime=$(date -d "$timer" +'%H:%M')
       timerSec=$(date +%s -d "$tmpTime")
       now=$(date +%s)
-      timeDiff=$(( ($timerSec - $now) / 60 ))
+      timeDiff=$(( (timerSec - now) / 60 ))
       if [ "$timeDiff" -ge "0" ]; then
-            printf " $timeDiff Min"
+            printf "%s" " $timeDiff Min"
       else
           notify-send -u low "Timer done !!!" -i ~/.config/dwm/util/dwm_logo.png
           #aplay ~/.config/dwm/util/mixkit-happy-bell-alert-601.wav

@@ -7,13 +7,10 @@ DMENU="dmenu -l 10 "
 [[ $(mountpoint -q -- "/mnt") ]] &&  sudo umount /mnt
 
 openDrive(){
-    if [ ! -z "$1" ] ; then
+    if [ -n "$1" ] ; then
         sudo mount "/dev/$1" /mnt
         notify-send -u low "/dev/$1 mounted in /mnt"
     fi    
 }
  
-openDrive $(\lsblk -la | awk '/s[a-z][a-z][0-9]/ && $7!="/" && $7!="[SWAP]" {print $1}' | $DMENU -p "$PROMPT" )
-
-#openDrive $(\ls /dev/sd* | grep '/dev/sd[a-z][0-9]' | $DMENU -p "$PROMPT" )
-#openDrive $(\ls /dev/sd* | grep '/dev/s[a-z][a-z][0-9]' | $DMENU -p "$PROMPT" )
+openDrive "$(\lsblk -do name,tran | awk '$2=="usb" {print $1}' | $DMENU -p "$PROMPT" )"

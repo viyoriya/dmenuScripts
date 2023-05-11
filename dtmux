@@ -1,0 +1,48 @@
+#!/bin/bash
+#www.github.com/viyoriya
+
+PROMPT="   List/Add SSH server  "
+PROMPT_CP="   Copy/Delete SSH server  "
+PROMPT_ADD="   Enter host@ip to add  "
+
+file="$HOME/.config/tmux/tmux-ssh-server.txt"
+if [ ! -f "$file" ]; then
+     mkdir -p "$(dirname "$file")" && touch "$file"
+ else
+     touch "$file"
+fi    
+height=$(wc -l "$file" | awk '{print $1}')
+
+checkNull(){
+    if [ "$height" == "0" ];then
+        cmd=$(dmenu -l "$height" -p "   [$height] $PROMPT_ADD" "$@" < "$file")
+        if [ -n "$cmd" ];then 
+            echo "ssh $cmd" >> "$file"
+            height=$(( height + 1 ))
+        fi   
+    fi
+}
+checkNull "$@"
+cmd=$(dmenu -l "$height" -p "   [$height] $PROMPT" "$@" < "$file")
+while [ -n "$cmd" ]; do
+ 	if grep -q "^$cmd\$" "$file"; then
+        opt=$(echo -e "Copy\nBack\nDelete" | dmenu -i -p "   [$height] $PROMPT_CP  " )
+           if [ "$opt" == "Delete" ];then 
+                grep -v "^$cmd\$" "$file" > "$file.$$"
+	    	    mv "$file.$$" "$file"
+                height=$(( height - 1 ))
+                checkNull "$@"
+           fi
+           if [ "$opt" == "Copy" ];then
+               echo "$cmd" | xclip && xdotool click 2
+               break;
+           fi  
+    else
+            echo "ssh $cmd" >> "$file"
+            height=$(( height + 1 ))
+ 	fi
+  
+	cmd=$(dmenu -l "$height" -p "   [$height] $PROMPT" "$@" < "$file")
+done
+
+#exit 0
