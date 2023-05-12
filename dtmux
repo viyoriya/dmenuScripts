@@ -1,9 +1,15 @@
 #!/bin/bash
 #www.github.com/viyoriya
 
-PROMPT="   List/Add SSH server  "
-PROMPT_CP="   Copy/Delete SSH server  "
-PROMPT_ADD="   Enter host@ip to add  "
+# install xclip,xdotool and fontawesome
+
+SSH_PARAM="ssh -Y"     # "ssh"
+PREFIX_KEY=ctrl+space  # add your prefix
+SPLIT_WINDOW=h         # Horizontal or Vertical
+
+PROMPT="   List/Add SSH server address  "
+PROMPT_CP="   Copy/Delete SSH server address  "
+PROMPT_ADD="   Enter host@ip to add SSH address  "
 
 file="$HOME/.config/tmux/tmux-ssh-server.txt"
 if [ ! -f "$file" ]; then
@@ -17,7 +23,7 @@ checkNull(){
     if [ "$height" == "0" ];then
         cmd=$(dmenu -l "$height" -p "   [$height] $PROMPT_ADD" "$@" < "$file")
         if [ -n "$cmd" ];then 
-            echo "ssh $cmd" >> "$file"
+            echo "$SSH_PARAM $cmd" >> "$file"
             height=$(( height + 1 ))
         fi   
     fi
@@ -34,15 +40,13 @@ while [ -n "$cmd" ]; do
                 checkNull "$@"
            fi
            if [ "$opt" == "Copy" ];then
-               echo "$cmd" | xclip && xdotool click 2
+               echo "$cmd" | xclip -i -sel clip && tmux split-window -$SPLIT_WINDOW && xdotool key $PREFIX_KEY p
                break;
            fi  
     else
             echo "ssh $cmd" >> "$file"
             height=$(( height + 1 ))
  	fi
-  
 	cmd=$(dmenu -l "$height" -p "   [$height] $PROMPT" "$@" < "$file")
 done
 
-#exit 0
