@@ -3,5 +3,5 @@
 
 if mountpoint -q -- "/mnt"; then
     sudo umount /mnt
-    notify-send -u low "Drive Unmounted"
+    notify-send -u low "  Drive Un-mounted"
 fi

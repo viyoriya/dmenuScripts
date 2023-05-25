@@ -1,15 +1,11 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #viyoriya - map to ShiftKey+XK_d in dwm
 
 PROMPT="   Scripts "
-
-#DMENU_OPT=" -i -nb #1F222D -nf #929496 -sb #929496 -sf #1F222D -fn Iosevka:style=Regular:size=10"    
-#DMENU="dmenu -l 10 $DMENU_OPT"
-DMENU="dmenu -l 10 "
+DMENU="dmenu -l 12 "
 
 script=$( cd /usr/local/bin/ && find d_* | $DMENU -p "$PROMPT")
+[[ -n "$script" ]] && "$script"
 
-# shellcheck source=/usr/local/bin/
-[[ -n "$script" ]] && source "$script" #Bloody shellcheck throws error grrrr 
-
-
+#binPath='/usr/local/bin/'
+#script=$( cd $binPath && find d_* | $DMENU -p "$PROMPT")
