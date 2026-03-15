@@ -1,11 +1,12 @@
-#!/usr/bin/env bash
-#viyoriya - map to ShiftKey+XK_d in dwm
+#!/bin/bash
+#viyoriya - map to Modkey+ShiftKey+XK_d in dwm
 
 PROMPT="   Scripts "
-DMENU="dmenu -l 12 "
+
+#DMENU="dmenu -l 10 "
+DMENU="dmenu " #bored of dropdown for 6 years use
 
 script=$( cd /usr/local/bin/ && find d_* | $DMENU -p "$PROMPT")
-[[ -n "$script" ]] && "$script"
+[[ -n "$script" ]] && source "$script" #Bloody shellcheck throws error grrrr 
 
-#binPath='/usr/local/bin/'
-#script=$( cd $binPath && find d_* | $DMENU -p "$PROMPT")
+

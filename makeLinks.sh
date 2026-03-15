@@ -5,17 +5,17 @@ dirPath=$PWD
 
 [ ! -d "$dirPath" ] && echo "Change the directory path"
 
-sudo ln -s "$dirPath"/dbluetooth /usr/local/bin/d_bluetooth
-sudo ln -s "$dirPath"/dbookmark /usr/local/bin/d_bookmark
-sudo ln -s "$dirPath"/dmount /usr/local/bin/d_mount
-sudo ln -s "$dirPath"/dpass /usr/local/bin/d_pass
-sudo ln -s "$dirPath"/drecord /usr/local/bin/d_record
-sudo ln -s "$dirPath"/dsearch /usr/local/bin/d_search
-sudo ln -s "$dirPath"/dtimer /usr/local/bin/d_timer 
-sudo ln -s "$dirPath"/dtodo /usr/local/bin/d_todo
-sudo ln -s "$dirPath"/dumount /usr/local/bin/d_umount
-sudo ln -s "$dirPath"/dwifi /usr/local/bin/d_wifi
-sudo ln -s "$dirPath"/dlist /usr/local/bin/dls 
+sudo ln -sf "$dirPath"/dbookmark /usr/local/bin/d_bookmark
+sudo ln -sf "$dirPath"/dbluetooth /usr/local/bin/d_bluetooth
+sudo ln -sf "$dirPath"/dmount /usr/local/bin/d_mount
+sudo ln -sf "$dirPath"/dumount /usr/local/bin/d_umount
+sudo ln -sf "$dirPath"/dpass /usr/local/bin/d_pass
+sudo ln -sf "$dirPath"/drecord /usr/local/bin/d_record
+sudo ln -sf "$dirPath"/dsearch /usr/local/bin/d_search
+sudo ln -sf "$dirPath"/dtodo /usr/local/bin/d_todo
+sudo ln -sf "$dirPath"/dtimer /usr/local/bin/d_timer 
+sudo ln -sf "$dirPath"/dwifi /usr/local/bin/d_wifi
+sudo ln -sf "$dirPath"/dlist /usr/local/bin/dls 
 
 
 [ -d "$HOME/.config/dwm" ] && cp "$dirPath"/etc/*.* ~/.config/dwm/util/
