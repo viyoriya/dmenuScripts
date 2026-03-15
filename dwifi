@@ -1,0 +1,69 @@
+#!/bin/sh
+# viyoriya - install wpa_cli , in wpa_supplicant.conf > update_config=1 , remove dhcpcd hook , run dhcpcd and wpa_supplicant seperately
+
+INTERFACE="wlan0"
+
+PROMPT="   Enter password for "
+PROMPT_INIT="   Select Wi-Fi "
+
+# --- 1. Already Connected Check ---
+CURRENT_SSID=$(wpa_cli -i "$INTERFACE" status | grep "^ssid=" | cut -d'=' -f2)
+[ -n "$CURRENT_SSID" ] && notify-send "Wi-Fi" "Currently connected to: $CURRENT_SSID"
+
+# --- 2. Scanning ---
+wpa_cli -i "$INTERFACE" scan > /dev/null 2>&1
+sleep 2
+
+# --- 3. SSID Selection ---
+SSID=$(wpa_cli -i "$INTERFACE" scan_results | awk 'NR>2 {if ($NF != "") print $NF}' | sort -u | dmenu -i -p "$PROMPT_INIT")
+[ $? -ne 0 ] || [ -z "$SSID" ] && exit 0
+
+# --- 4. Password Prompt ---
+PASS=$(echo "" | dmenu -P -p "$PROMPT $SSID ")
+[ $? -ne 0 ] && exit 0
+
+# --- 5. DEDUPLICATION: Remove existing entry for this SSID if it exists ---
+# This stops the "disabled=1" duplicates from piling up
+OLD_ID=$(wpa_cli -i "$INTERFACE" list_networks | grep "$SSID" | awk '{print $1}')
+if [ -n "$OLD_ID" ]; then
+    for id in $OLD_ID; do
+        wpa_cli -i "$INTERFACE" remove_network "$id" > /dev/null
+    done
+fi
+
+# --- 6. Add & Configure Network ---
+ID=$(wpa_cli -i "$INTERFACE" add_network)
+
+cleanup() {
+    wpa_cli -i "$INTERFACE" remove_network "$ID" > /dev/null
+    wpa_cli -i "$INTERFACE" save_config > /dev/null
+    exit 1
+}
+trap cleanup INT TERM
+
+wpa_cli -i "$INTERFACE" set_network "$ID" ssid "\"$SSID\""
+if [ -z "$PASS" ]; then
+    wpa_cli -i "$INTERFACE" set_network "$ID" key_mgmt NONE
+else
+    wpa_cli -i "$INTERFACE" set_network "$ID" psk "\"$PASS\""
+fi
+
+# --- 7. Connect and Verify ---
+wpa_cli -i "$INTERFACE" enable_network "$ID"
+wpa_cli -i "$INTERFACE" select_network "$ID"
+notify-send "Wi-Fi" "Connecting to $SSID..."
+
+TIMER=0
+while [ $TIMER -lt 15 ]; do
+    if wpa_cli -i "$INTERFACE" status | grep -q "ip_address"; then
+        wpa_cli -i "$INTERFACE" save_config
+        notify-send "Wi-Fi" "Connected and Saved: $SSID"
+        trap - INT TERM 
+        exit 0
+    fi
+    sleep 1
+    TIMER=$((TIMER + 1))
+done
+
+notify-send "Wi-Fi" "Failed to connect. Removing entry..."
+cleanup
