@@ -1,16 +1,20 @@
 #!/bin/bash
-#viyoriya
-
-PROMPT="   Google Search " 
+# viyoriya - Google Search 
 
 #DMENU_OPT=" -i -nb #1F222D -nf #929496 -sb #929496 -sf #1F222D -fn Iosevka:style=Regular:size=10"    
 #DMENU="dmenu $DMENU_OPT"
-DMENU="dmenu "
 
+PROMPT="   Google Search "
+DMENU="dmenu -p"
 URL='http://www.google.com/search?q='
-QUERY=$( echo '' |  $DMENU -p "$PROMPT" )
+
+QUERY=$(dmenu -p "$PROMPT" < /dev/null)
 
 if [ -n "$QUERY" ]; then
-  xdg-open "${URL}${QUERY}" 2> /dev/null
+  ENCODED_QUERY=$(echo "$QUERY" | sed 's/ /+/g')
+  
+  xdg-open "${URL}${ENCODED_QUERY}" 2> /dev/null &
 fi
+
+
 

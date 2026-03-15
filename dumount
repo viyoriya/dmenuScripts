@@ -1,7 +1,22 @@
 #!/bin/bash
-#viyoriya
+#viyoriya  provide permissions in the sudoers: %wheel ALL=(ALL) NOPASSWD: /usr/bin/umount, /usr/bin/rmdir
 
-if mountpoint -q -- "/mnt"; then
-    sudo umount /mnt
-    notify-send -u low "  Drive Un-mounted"
-fi
+PROMPT="   Unmount USB "
+DMENU="dmenu -i -l 10"
+
+close_drive() {
+    local target="$1"
+    if [[ -n "$target" ]]; then
+        if sudo umount "$target"; then
+            sudo rmdir "$target" 2>/dev/null
+            notify-send -u low "$target Unmounted"
+        else
+            notify-send -u critical "$target is likely busy"
+        fi
+    fi
+}
+
+selection=$(findmnt -lo TARGET | grep "^/mnt/" | $DMENU -p "$PROMPT")
+
+close_drive "$selection"
+

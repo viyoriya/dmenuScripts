@@ -2,19 +2,11 @@
 #viyoriya
 
 PROMPT="   Start Timer "
-#DMENU_OPT=" -i -nb #1F222D -nf #929496 -sb #929496 -sf #1F222D -fn Iosevka:style=Regular:size=10"    
-#DMENU_OPT=" "    
-
 timerFile="/tmp/.timerFile" #move it to ~/.config/ so it will be persisted even after reboot
-min=" min\n"
-hr=" hr\n"
-minsArray=""
-hrsArray=""
 
-for i in {1..60}; do minsArray=$minsArray$i$min; done
-for i in {1..8}; do hrsArray=$hrsArray$i$hr ; done    # Add more hours if required
-
-timer=$(printf "${minsArray}${hrsArray}" | dmenu -p "$PROMPT" "$DMENU_OPT" )
+MINS=$(printf '%s min\n' {1..60})
+HOURS=$(printf '%s hr\n' {1..8})
+timer=$(printf "%s\n%s" "$MINS" "$HOURS" | dmenu -i -p "$PROMPT")
 
 if [ -n "$timer" ]; then
     

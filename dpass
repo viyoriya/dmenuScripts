@@ -1,13 +1,34 @@
 #!/bin/bash
-#viyoriya
 
-PROMPT="   Login id " 
+# DEBUG: Log all output and errors to /tmp/dpass_debug.log
+#exec > /tmp/dpass_debug.log 2>&1
+#set -x  # Print each command before executing it
 
-#DMENU_OPT=" -i -nb #1F222D -nf #929496 -sb #929496 -sf #1F222D -fn Iosevka:style=Regular:size=10"    
-#DMENU="dmenu -l 10 $DMENU_OPT"
-DMENU="dmenu -l 10 "
+PASSWORD_STORE_DIR="$HOME/.local/share/.password-store"
+PROMPT="   Login: "
+DMENU="dmenu -i -l 15 -p"
+MASTER_PROMPT="  Enter Master Pwd : "
 
-password=$(find ~/.password-store/ -type f -name '*.gpg' |
-	cut -d'/' -f5- | rev | cut -f 2- -d '.' | rev | $DMENU -p "$PROMPT" )
+# Set the TTY for GPG
+export GPG_TTY=$(tty)
 
-[ -n "$password" ] && pass show -c "$password"
+# Start gpg-agent if it isn't running
+if ! pgrep -x -u "$USER" gpg-agent >/dev/null; then
+    gpg-connect-agent /bye
+fi
+
+selection=$(find "$PASSWORD_STORE_DIR" -type f -name "*.gpg" -printf "%P\n" | sed 's/\.gpg$//' | dmenu -i -l 15 -p "$PROMPT")
+[ -z "$selection" ] && exit 0
+
+# Master Password Prompt
+passphrase=$(echo "" | dmenu -i -p "$MASTER_PROMPT" -P | tr -d '\n')
+[ -z "$passphrase" ] && exit 1
+
+if echo "$passphrase" | gpg --batch --quiet --passphrase-fd 0 --pinentry-mode loopback -d "$PASSWORD_STORE_DIR/$selection.gpg" | head -n 1 | xclip -selection clipboard; then
+    notify-send  "Pwd for $selection in clipboard"
+    # Optional: Clear clipboard after 45 seconds
+    (sleep 15 && xclip -selection clipboard /dev/null) & 
+else
+    notify-send "Error: Decryption failed"
+fi
+

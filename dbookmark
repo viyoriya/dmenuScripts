@@ -1,33 +1,44 @@
 #!/bin/bash
 #viyoriya
 
-PROMPT="   Open bookmark "
-PROMPT_ADD="   Add bookmark "
-
-#DMENU_OPT=" -i -nb #1F222D -nf #929496 -sb #929496 -sf #1F222D -fn Iosevka:style=Regular:size=10"    
-#DMENU="dmenu -l 10 $DMENU_OPT"
-DMENU="dmenu -l 10 "
-
+PROMPT="   Bookmarks "
+PROMPT_ADD="   Add URL "
+PROMPT_DEL="   Delete URL "
+PROMPT_LIST="   Open URL "
+DMENU_HORIZ="dmenu -i"
+DMENU_VERT="dmenu -i -l 15 "
 bmFile="$HOME/.config/todo/bm_url.txt"
-if [ ! -f "$bmFile" ]; then
-     mkdir -p "$(dirname "$bmFile")" && touch "$bmFile"
-     echo "add" >> "$bmFile"
- else
-     touch "$bmFile"
-fi    
-    
-url=$( < "$bmFile" $DMENU -p "$PROMPT" | sed "s/ .*//")
 
-if [[ "$url" == "add" ]]; then
-    url=$( $DMENU -p "$PROMPT_ADD" "$@" < "$bmFile" )
-    if [[ "$url" == "add" ]] || [[ -z "$url" ]]; then 
-        exit 
-    fi
-    echo "$url" >> "$bmFile"
-    xdg-open "$url" 2> /dev/null
-else
-    if [[ -n "$url" ]]; then
-      xdg-open "$url" 2> /dev/null
-    fi  
-fi    
+[[ ! -f "$bmFile" ]] && mkdir -p "$(dirname "$bmFile")" && touch "$bmFile"
+
+while true; do
+    mode=$(printf "add\ndel\nlist" | $DMENU_HORIZ -p "$PROMPT")
+    [[ -z "$mode" ]] && exit
+
+    case "$mode" in
+        add)
+            new_url=$( : | $DMENU_HORIZ -p "$PROMPT_ADD" )
+            if [[ -n "$new_url" ]]; then
+                echo "$new_url" | cat - "$bmFile" > "$bmFile.tmp" && mv "$bmFile.tmp" "$bmFile"
+            fi
+            ;;
+
+        del)
+            selection=$(awk '{print NR ". " $0}' "$bmFile" | $DMENU_VERT -p "$PROMPT_DEL")
+            if [[ -n "$selection" ]]; then
+                line_num=$(echo "$selection" | cut -d'.' -f1)
+                sed -i "${line_num}d" "$bmFile"
+            fi
+            ;;
+
+        list)
+            choice=$( < "$bmFile" $DMENU_VERT -p "$PROMPT_LIST")
+            if [[ -n "$choice" ]]; then
+                url=$(echo "$choice" | awk '{print $1}')
+                [[ ! "$url" =~ ^[a-zA-Z0-9]+:// ]] && url="https://$url"
+                xdg-open "$url" 2> /dev/null
+            fi
+            ;;
+    esac
+done
 
