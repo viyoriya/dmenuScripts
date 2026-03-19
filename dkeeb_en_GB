@@ -1,0 +1,105 @@
+#!/bin/bash
+
+PROMPT="  GB "
+DMENU="dmenu -i -l 10"
+DMENU_BT="dmenu -i"
+
+en_GB="£  Pound
+€  Euro
+¬  Logical_Not
+¦  Pipe
+§  Section
+±  Plus-Minus
+@  At Symbol
+#  Hash
+~  Tilde"
+
+Math="×  Multiplication
+÷  Division
+≠  Not_Equal
+≈  Approximately
+°  Degree
+∑  Sum
+∞  Infinity
+π  Pi
+√  Square_Root
+²  Squared
+³  Cubed
+∫  Integral
+∀  For_All
+∃  There_Exists
+∈  Element_Of
+"
+
+Greek="α  alpha
+β  beta
+γ  gamma
+δ  delta
+ε  epsilon
+ζ  zeta
+η  eta
+θ  theta
+ι  iota
+κ  kappa
+λ  lambda
+μ  mu
+ν  nu
+ξ  xi
+ο  omicron
+π  pi
+ρ  rho
+σ  sigma
+τ  tau
+υ  upsilon
+φ  phi
+χ  chi
+ψ  psi
+ω  omega
+Δ  Delta
+Φ  Phi
+Γ  Gamma
+Λ  Lambda
+Ω  Omega
+Σ  Sigma
+Ψ  Psi"
+
+Arrows="→  Right_Arrow
+←  Left_Arrow
+↑  Up_Arrow
+↓  Down_Arrow
+↔  Left_Right"
+
+Misc="©  Copyright
+®  Registered
+™  Trademark
+•  Bullet_Point
+§  Section_Sign
+†  Dagger"
+
+categories="en_GB\nArrows\nMath\nGreek\nMisc"
+
+while true; do
+  chosen_cat=$(printf "$categories" | $DMENU_BT -p "$PROMPT")
+
+  [ -z "$chosen_cat" ] && exit 0
+
+  case "$chosen_cat" in
+    en_GB) list="$en_GB" ;;
+    Greek) list="$Greek" ;;
+    Math) list="$Math" ;;
+    Misc) list="$Misc" ;;
+    Arrows) list="$Arrows" ;;
+    *) continue ;;
+  esac
+
+  chosen_row=$(printf "$list" | $DMENU -p "$PROMPT- [$chosen_cat] ")
+
+  [ -z "$chosen_row" ] && continue
+
+  symbol=$(echo "$chosen_row" | awk '{print $1}')
+  printf "%s" "$symbol" | xclip -selection clipboard >/dev/null 2>&1
+  sleep 0.1
+  xdotool key --clearmodifiers ctrl+v
+  exit 0
+
+done
