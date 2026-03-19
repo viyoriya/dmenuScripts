@@ -2,29 +2,29 @@
 #viyoriya - provide permission in sudoers for mount: %wheel ALL=(ALL) NOPASSWD: /usr/bin/mount, /usr/bin/umount, /usr/bin/mkdir, /usr/bin/rmdir
 
 PROMPT="   Mount HDD "
-DMENU="dmenu -i -l 15"  
-MOUNT_ROOT="/mnt"
+DMENU="dmenu -i -l 15"
+#MOUNT_ROOT="/mnt"
 
 open_drive() {
-    local dev="$1"
-    if [[ -n "$dev" ]]; then
-        local mount_path="/mnt/$dev"
-        sudo mkdir -p "$mount_path"
-        if mountpoint -q "$mount_path"; then
-            sudo umount "$mount_path"
-        fi
-        if sudo mount "/dev/$dev" "$mount_path"; then
-            notify-send -u low "/dev/$dev mounted at $mount_path"
-        else
-            notify-send -u critical "Could not mount /dev/$dev"
-            sudo rmdir "$mount_path" 2>/dev/null
-        fi
+  local dev="$1"
+  if [[ -n "$dev" ]]; then
+    local mount_path="/mnt/$dev"
+    sudo mkdir -p "$mount_path"
+    if mountpoint -q "$mount_path"; then
+      sudo umount "$mount_path"
     fi
+    if sudo mount "/dev/$dev" "$mount_path"; then
+      notify-send -u low "/dev/$dev mounted at $mount_path"
+    else
+      notify-send -u critical "Could not mount /dev/$dev"
+      sudo rmdir "$mount_path" 2>/dev/null
+    fi
+  fi
 }
 
-selection=$(lsblk -rn -o NAME,SIZE,FSTYPE,MOUNTPOINT | \
-    awk '$1 ~ /s[a-z][a-z][0-9]$/ && $4 != "/" && $4 != "[SWAP]" && $4 == "" {print $1 " (" $2 " " $3 ")"}' | \
-    $DMENU -p "$PROMPT")
+selection=$(lsblk -rn -o NAME,SIZE,FSTYPE,MOUNTPOINT |
+  awk '$1 ~ /s[a-z][a-z][0-9]$/ && $4 != "/" && $4 != "[SWAP]" && $4 == "" {print $1 " (" $2 " " $3 ")"}' |
+  $DMENU -p "$PROMPT")
 
 target_dev=$(echo "$selection" | awk '{print $1}')
 open_drive "$target_dev"

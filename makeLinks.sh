@@ -13,11 +13,10 @@ sudo ln -sf "$dirPath"/dpass /usr/local/bin/d_pass
 sudo ln -sf "$dirPath"/drecord /usr/local/bin/d_record
 sudo ln -sf "$dirPath"/dsearch /usr/local/bin/d_search
 sudo ln -sf "$dirPath"/dtodo /usr/local/bin/d_todo
-sudo ln -sf "$dirPath"/dtimer /usr/local/bin/d_timer 
+sudo ln -sf "$dirPath"/dtimer /usr/local/bin/d_timer
 sudo ln -sf "$dirPath"/dwifi /usr/local/bin/d_wifi
-sudo ln -sf "$dirPath"/dlist /usr/local/bin/dls 
-
+sudo ln -sf "$dirPath"/dkeeb_en_GB /usr/local/bin/d_keeb_en_GB
+sudo ln -sf "$dirPath"/dlist /usr/local/bin/dls
 
 [ -d "$HOME/.config/dwm" ] && cp "$dirPath"/etc/*.* ~/.config/dwm/util/
 [ -d "$HOME/.dwm" ] && cp "$dirPath"/etc/*.* ~/.dwm/util/
-
