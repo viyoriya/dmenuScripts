@@ -1,4 +1,5 @@
 #!/bin/bash
+# viyoriya
 
 PROMPT="  GB "
 DMENU="dmenu -i -l 10"

@@ -15,8 +15,9 @@ simple dmenu scripts
 
 8. power_menu  - menu for shutdown/lock/reboot/exit (systemd & runit)
 
+9. dkeeb_en_GB - list UK missing symbols in US keyboard
 
-9. dlist      - list all the scripts in dmenu and execute
+10. dlist      - list all the scripts in dmenu and execute
 
 update the path in makeLinks.sh
 
