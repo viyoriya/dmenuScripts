@@ -14,7 +14,7 @@ open_drive() {
       sudo umount "$mount_path"
     fi
     if sudo mount "/dev/$dev" "$mount_path"; then
-      notify-send -u low "/dev/$dev mounted at $mount_path"
+      notify-send -u low "/dev/$dev mounted "
     else
       notify-send -u critical "Could not mount /dev/$dev"
       sudo rmdir "$mount_path" 2>/dev/null
